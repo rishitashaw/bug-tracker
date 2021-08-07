@@ -1,9 +1,5 @@
-function sayHello() {
-  return "hello world!";
-}
+import store from "./store";
 
-function greet(functionMessage) {
-  console.log(functionMessage);
-}
-
-greet(sayHello);
+console.log("====================================");
+console.log(store);
+console.log("====================================");

@@ -1,4 +1,7 @@
 import { createStore } from "redux";
+import { devToolsEnhancer } from "@reduxjs/toolkit/dist/devtoolsExtension";
 import reducer from "./reducer";
 
-export default createStore(reducer);
+const store = createStore(reducer, devToolsEnhancer({ trace: true }));
+
+export default store;
