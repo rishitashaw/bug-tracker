@@ -1,7 +1,28 @@
-import { createStore } from "redux";
-import { devToolsEnhancer } from "@reduxjs/toolkit/dist/devtoolsExtension";
-import reducer from "./reducer";
+import reducer from "./bugs";
 
-const store = createStore(reducer, devToolsEnhancer({ trace: true }));
+function createStore(reducer) {
+  let state;
+  let listeners = [];
 
-export default store;
+  function subscribe(listener) {
+    listeners.push(listener);
+  }
+
+  function dispatch(action) {
+    state = reducer(state, action);
+
+    for (let listener of listeners) listener();
+  }
+
+  function getState() {
+    return state;
+  }
+
+  return {
+    subscribe,
+    dispatch,
+    getState,
+  };
+}
+
+export default createStore(reducer);
