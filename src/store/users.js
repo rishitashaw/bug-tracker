@@ -1,26 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createSelector } from "reselect";
+
+let lastId = 0;
 
 const slice = createSlice({
   name: "users",
-  initialState: {
-    list: [],
-  },
+  initialState: [],
   reducers: {
     userAdded: (users, action) => {
-      users.list.push(action.payload);
-    },
-    userResolved: (users, action) => {
-      const index = users.list.findIndex(
-        (user) => user.id === action.payload.id
-      );
-      users.list[index].resolved = true;
-    },
-    userRemoved: (users, action) => {
-      return users.list.filter((user) => user.id !== action.payload.id);
+      users.push({
+        id: ++lastId,
+        name: action.payload.name,
+      });
     },
   },
 });
 
-export const { userAdded, userResolved, userRemoved } = slice.actions;
+export const { userAdded } = slice.actions;
 export default slice.reducer;
