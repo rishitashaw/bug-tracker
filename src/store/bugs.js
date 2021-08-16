@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import moment from "moment";
 import { createSelector } from "reselect";
 
 const slice = createSlice({
@@ -21,15 +20,7 @@ const slice = createSlice({
   },
 });
 
-const {
-  bugsReceived,
-  bugAssignedToUser,
-  bugAdded,
-  bugResolved,
-  bugRemoved,
-  bugsRequested,
-  bugsRequestFailed,
-} = slice.actions;
+export const { bugAdded, bugResolved, bugRemoved } = slice.actions;
 export default slice.reducer;
 
 // Selector
