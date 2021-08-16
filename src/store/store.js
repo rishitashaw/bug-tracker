@@ -1,3 +1,4 @@
+import { applyMiddleware } from "@reduxjs/toolkit";
 import reducer from "./bugs";
 
 function createStore(reducer) {
