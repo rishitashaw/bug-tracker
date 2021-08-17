@@ -7,21 +7,25 @@ const api =
   async (action) => {
     if (action.type !== actions.apiCallBegan.type) return next(action);
 
+    const { url, method, data, onStart, onSuccess, onError } = action.payload;
+    if (onStart) dispatch({ type: onStart });
+
     next(action);
-    const { url, method, data, onSuccess, onFailure } = action.payload;
 
     try {
       const response = await axios.request({
-        baseURL: "https://localhost:9001/api",
+        baseURL: "http://localhost:9001/api",
         url,
         method,
         data,
       });
-      dispatch(actions.apiCallSuccess({ payload: response.data }));
+      dispatch(actions.apiCallSuccess(response.data));
+
       if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
     } catch (error) {
-      dispatch(actions.apiCallFailure({ payload: error }));
-      if (onFailure) dispatch({ type: actions.apiCallFailure, payload: error });
+      dispatch(actions.apiCallFailed(error));
+
+      if (onError) dispatch({ type: onError, payload: error.message });
     }
   };
 
