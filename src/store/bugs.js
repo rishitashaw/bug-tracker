@@ -5,7 +5,10 @@ const slice = createSlice({
   name: "bugs",
   initialState: {
     list: [],
+    loaded: false,
+    lastFetch: null,
   },
+
   reducers: {
     bugAdded: (bugs, action) => {
       bugs.list.push(action.payload);
